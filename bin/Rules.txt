@@ -1,0 +1,25 @@
+AxHell - A simple exploitable ActiveX Control for RE/VR
+(c) James Forshaw 2010
+
+Licensed under GPLv3
+
+Installing:
+
+* Copy axhell.dll somewhere local and run 'regsvr32 axhell.dll'
+
+* Copy example.htm and installer.exe to a website (and make sure both can be served), run it to
+check it works (you should get a message box appear). 
+
+Rules of the game:
+
+* All functions are vulnerable to something (except GetHint, I just couldn't think of anything good).
+
+* Call GetHint with the name of the hint to get some meaningless text ;)
+
+* A vulnerability does not necessarily mean you get code execution, there are other types of vulnerability
+
+* Assume you can force a user to go to your website, you cannot man in the middle their traffic, redirect their DNS etc. 
+
+* Don't waste too much time on this :)
+
+* Only play with this on an isolated computer, otherwise you _will_ get owned by somebody. 

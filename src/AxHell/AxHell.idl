@@ -1,0 +1,85 @@
+// AxHell.idl : IDL source for AxHell
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (AxHell.tlb) and marshalling code.
+
+#include "olectl.h"
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(088D2CF7-D853-4893-8B8C-7941BD8F7781),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IAxHellControl : IDispatch{
+	[id(1), helpstring("Get a hint for the function name")] HRESULT GetHint([in] BSTR bstrFuncName, [out,retval] BSTR* pbstrHint);
+	[id(2), helpstring("Pass a string of the name of the utility to run, only a limited subset will be allowed for safety")] HRESULT RunUtility([in] VARIANT varName);
+	[id(3), helpstring("Ultra fast string reverser!")] HRESULT ReverseString([in] BSTR bstrString, [out,retval] BSTR* bstrRet);
+	[id(4), helpstring("Create a random string full of fun, if ulSeed != 0 then seeds generator.")] HRESULT CreateRandomString([in] ULONG ulSeed, [out,retval] BSTR* bstrRet);
+	[id(5), helpstring("Nice utility function to do an XSLT transform without any extra code.")] HRESULT TransformXSLT([in] BSTR bstrXML, [in] BSTR bstrXSLT, [out,retval] BSTR* bstrResult);
+	[id(6), helpstring("Creates a new ActiveX object, allows you to specify the CLSID directly unlike normal")] HRESULT CreateObject([in] BSTR bstrCLSID, [out,retval] VARIANT* ppObject);
+	[id(7), helpstring("Download and run an installer, only allow files with a valid signature")] HRESULT RunInstaller([in] BSTR url, [in] BSTR signature, [out,retval] VARIANT_BOOL* bRet);
+	[id(8), helpstring("Download and run our only specific installers, nothing else")] HRESULT RunInstallerEx([in] BSTR url, [out,retval] VARIANT_BOOL* bRet);
+	[id(9), helpstring("Create a ByteStream object. Can be used to construct a binary blob to POST via XmlHttpRequest")] HRESULT CreateByteStream([in] ULONG ulSize, [out,retval] IDispatch** ppDispatch);
+	[id(10), helpstring("Run installer only from our host www.notintheslightestisthisreal.com")] HRESULT RunInstallerExEx([in] BSTR url);
+};
+
+[
+	object,
+	uuid(33D7950F-D773-4F6D-983B-853EAB320986),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IByteStream : IDispatch{
+	[id(1), helpstring("Read bytes from the stream buffer, returns a hex encoded string.")] HRESULT ReadBytes([in] ULONG ulOffset, [in] ULONG ulSize, [out,retval] BSTR* bstrRet);
+	[id(2), helpstring("Write bytes to the stream buffer, requires a hex encoded string.")] HRESULT WriteBytes([in] ULONG ulOffset, [in] BSTR bstrHexData);
+	[id(3), helpstring("Reset the buffer to zero.")] HRESULT Clear(void);
+};
+[
+	object,
+	uuid(8F9B5604-D0E4-4B2A-BB71-1D6958BB9F41),
+	nonextensible,
+	pointer_default(unique)
+]
+interface IByteStreamInit : IUnknown {
+	HRESULT Initialize(ULONG ulSize);
+};
+
+[
+	uuid(2D452F16-C5E5-45DA-AC5C-7E982FB980EC),
+	version(1.0),
+]
+library AxHellLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(1D82C6A4-031A-427C-B620-04AA08AFA624)		
+	]
+	dispinterface _IAxHellControlEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(3AE51322-4D0E-4AAD-9F67-FD3925EE5FE1),		
+		control
+	]
+	coclass AxHellControl
+	{
+		[default] interface IAxHellControl;
+		[default, source] dispinterface _IAxHellControlEvents;
+	};
+	[
+		uuid(35ECD2DB-3A98-4E79-969E-0FE2C28CC623)		
+	]
+	coclass ByteStream
+	{
+		[default] interface IByteStream;
+	};
+};
+

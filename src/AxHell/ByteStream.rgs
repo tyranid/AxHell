@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {35ECD2DB-3A98-4E79-969E-0FE2C28CC623} = s 'ByteStream Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{2D452F16-C5E5-45DA-AC5C-7E982FB980EC}'
+			Version = s '1.0'
+		}
+	}
+}

